@@ -3,7 +3,7 @@ import NodeCache from 'node-cache';
 import ICAL from 'ical.js';
 
 
-const cacheControl = new NodeCache({ stdTTL: 300, checkperiod: 60, deleteOnExpire: false });
+const cacheControl = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 
 
 export const fetchCalendar = async (url) => {
