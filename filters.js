@@ -24,7 +24,7 @@ const eventType = (vevent) => {
 	if (summary.includes('(TUT)')) {
 		return 'tutorial';
 	}
-	if (summary.includes('(LAB)')) {
+	if (summary.includes('(LAB)') || summary.includes('(CLN)')) {
 		return 'lab';
 	}
 	if (summary.includes('(TST)') || summary.toLowerCase().trim().endsWith('final')) {
