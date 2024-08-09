@@ -8,6 +8,31 @@ export const filterCalendar = (comp, category) => {
 			comp.removeSubcomponent(vevent);
 		}
 	});
+
+	// deduplicate if important-date
+	if (category === 'important-date') {
+		let vevents = comp.getAllSubcomponents('vevent');
+		for (let i = 0; i < vevents.length; i++) {
+			for (let j = 0; j < vevents.length; j++) {
+				if (i === j) {
+					continue;
+				}
+				if (
+					vevents[i].getFirstPropertyValue('summary') === vevents[j].getFirstPropertyValue('summary') &&
+					vevents[i].getFirstPropertyValue('dtstart').toString() === vevents[j].getFirstPropertyValue('dtstart').toString() &&
+					vevents[i].getFirstPropertyValue('dtend').toString() === vevents[j].getFirstPropertyValue('dtend').toString() &&
+					vevents[i].getFirstPropertyValue('description').trim() === ""				
+				) {
+					comp.removeSubcomponent(vevents[i]);
+					vevents = comp.getAllSubcomponents('vevent');
+					i = -1;
+					break;
+				}
+			}
+		}
+	}
+
+	
 	return comp;
 }
 
