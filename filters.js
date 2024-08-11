@@ -32,6 +32,17 @@ export const filterCalendar = (comp, category) => {
 		}
 	}
 
+	// add exam seating to PAC finals
+	vevents = comp.getAllSubcomponents('vevent');
+	vevents.forEach(vevent => {
+		const matching = vevent.getFirstPropertyValue('description').trim().match(/Go to the PAC \(Physical Activities Complex\)Enter at the (?<entrance>[A-Z]*) entranceGo (?<direction>[a-z]*) all the way to (?<level>.*?)When allowed by proctors\, enter and find seat (?<seat>.*?)$/);
+		if (!matching) {
+			return;
+		}
+		if (!vevent.getFirstPropertyValue('location')) return;
+		vevent.updatePropertyWithValue('location', `PAC ${matching.groups.seat} (${matching.groups.entrance}, go ${matching.groups.direction} to ${matching.groups.level})`);
+	});	
+
 	
 	return comp;
 }
