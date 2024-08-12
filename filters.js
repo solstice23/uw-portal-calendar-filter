@@ -39,8 +39,7 @@ export const filterCalendar = (comp, category) => {
 		if (!matching) {
 			return;
 		}
-		if (!vevent.getFirstPropertyValue('location')) return;
-		vevent.updatePropertyWithValue('location', `PAC ${matching.groups.seat} (${matching.groups.entrance}, go ${matching.groups.direction} to ${matching.groups.level})`);
+		vevent.updatePropertyWithValue('location', `PAC ${matching.groups.seat} (${matching.groups.entrance}, go ${matching.groups.direction}, ${matching.groups.level})`);
 	});	
 
 	
